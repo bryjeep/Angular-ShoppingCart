@@ -5,13 +5,13 @@ import {
   OnChanges,
   SimpleChange,
   SimpleChanges
-} from "@angular/core";
-import { Product } from "../../shared/models/product";
+} from '@angular/core';
+import { Product } from '../../shared/models/product';
 
 @Component({
-  selector: "app-cart-calculator",
-  templateUrl: "./cart-calculator.component.html",
-  styleUrls: ["./cart-calculator.component.scss"]
+  selector: 'app-cart-calculator',
+  templateUrl: './cart-calculator.component.html',
+  styleUrls: ['./cart-calculator.component.scss']
 })
 export class CartCalculatorComponent implements OnInit, OnChanges {
   @Input() products: Product[];

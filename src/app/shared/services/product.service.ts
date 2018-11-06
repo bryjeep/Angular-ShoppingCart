@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireList,
   AngularFireObject
-} from "angularfire2/database";
-import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
-import { Product } from "../models/product";
-import { AuthService } from "./auth.service";
+} from 'angularfire2/database';
+import { ToastOptions, ToastyService, ToastyConfig } from 'ng2-toasty';
+import { Product } from '../models/product';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ProductService {
@@ -28,15 +28,15 @@ export class ProductService {
     private toastyConfig: ToastyConfig
   ) {
     // Toaster Config
-    this.toastyConfig.position = "top-right";
-    this.toastyConfig.theme = "material";
+    this.toastyConfig.position = 'top-right';
+    this.toastyConfig.theme = 'material';
 
     this.calculateLocalFavProdCounts();
     this.calculateLocalCartProdCounts();
   }
 
   getProducts() {
-    this.products = this.db.list("products");
+    this.products = this.db.list('products');
     return this.products;
   }
 
@@ -45,7 +45,7 @@ export class ProductService {
   }
 
   getProductById(key: string) {
-    this.product = this.db.object("products/" + key);
+    this.product = this.db.object('products/' + key);
     return this.product;
   }
 
@@ -64,8 +64,8 @@ export class ProductService {
   // Get Favourite Product based on userId
   getUsersFavouriteProduct() {
     const user = this.authService.getLoggedInUser();
-    this.favouriteProducts = this.db.list("favouriteProducts", ref =>
-      ref.orderByChild("userId").equalTo(user.$key)
+    this.favouriteProducts = this.db.list('favouriteProducts', ref =>
+      ref.orderByChild('userId').equalTo(user.$key)
     );
     return this.favouriteProducts;
   }
@@ -74,28 +74,28 @@ export class ProductService {
   addFavouriteProduct(data: Product): void {
     // Toast Product Already exists
     const toastAlreadyExists: ToastOptions = {
-      title: "Product Already Added",
-      msg: "You have already added this product to favourite list",
+      title: 'Product Already Added',
+      msg: 'You have already added this product to favourite list',
       showClose: true,
       timeout: 5000,
-      theme: "material"
+      theme: 'material'
     };
 
     // Toaster Adding
     const toastAdd: ToastOptions = {
-      title: "Adding Product",
-      msg: "Adding Product as Favourite",
+      title: 'Adding Product',
+      msg: 'Adding Product as Favourite',
       showClose: true,
       timeout: 5000,
-      theme: "material"
+      theme: 'material'
     };
 
     let a: Product[];
-    a = JSON.parse(localStorage.getItem("avf_item")) || [];
+    a = JSON.parse(localStorage.getItem('avf_item')) || [];
     a.push(data);
     this.toastyService.wait(toastAdd);
     setTimeout(() => {
-      localStorage.setItem("avf_item", JSON.stringify(a));
+      localStorage.setItem('avf_item', JSON.stringify(a));
       this.calculateLocalFavProdCounts();
     }, 1500);
   }
@@ -103,7 +103,7 @@ export class ProductService {
   // Fetching unsigned users favourite proucts
   getLocalFavouriteProducts(): Product[] {
     const products: Product[] =
-      JSON.parse(localStorage.getItem("avf_item")) || [];
+      JSON.parse(localStorage.getItem('avf_item')) || [];
 
     return products;
   }
@@ -115,7 +115,7 @@ export class ProductService {
 
   // Removing Favourite Product from localStorage
   removeLocalFavourite(product: Product) {
-    const products: Product[] = JSON.parse(localStorage.getItem("avf_item"));
+    const products: Product[] = JSON.parse(localStorage.getItem('avf_item'));
 
     for (let i = 0; i < products.length; i++) {
       if (products[i].productId === product.productId) {
@@ -124,7 +124,7 @@ export class ProductService {
       }
     }
     // ReAdding the products after remove
-    localStorage.setItem("avf_item", JSON.stringify(products));
+    localStorage.setItem('avf_item', JSON.stringify(products));
 
     this.calculateLocalFavProdCounts();
   }
@@ -142,27 +142,27 @@ export class ProductService {
   addToCart(data: Product): void {
     let a: Product[];
 
-    a = JSON.parse(localStorage.getItem("avct_item")) || [];
+    a = JSON.parse(localStorage.getItem('avct_item')) || [];
 
     a.push(data);
 
     const toastOption: ToastOptions = {
-      title: "Adding Product to Cart",
-      msg: "Product Adding to the cart",
+      title: 'Adding Product to Cart',
+      msg: 'Product Adding to the cart',
       showClose: true,
       timeout: 1000,
-      theme: "material"
+      theme: 'material'
     };
     this.toastyService.wait(toastOption);
     setTimeout(() => {
-      localStorage.setItem("avct_item", JSON.stringify(a));
+      localStorage.setItem('avct_item', JSON.stringify(a));
       this.calculateLocalCartProdCounts();
     }, 500);
   }
 
   // Removing cart from local
   removeLocalCartProduct(product: Product) {
-    const products: Product[] = JSON.parse(localStorage.getItem("avct_item"));
+    const products: Product[] = JSON.parse(localStorage.getItem('avct_item'));
 
     for (let i = 0; i < products.length; i++) {
       if (products[i].productId === product.productId) {
@@ -171,7 +171,7 @@ export class ProductService {
       }
     }
     // ReAdding the products after remove
-    localStorage.setItem("avct_item", JSON.stringify(products));
+    localStorage.setItem('avct_item', JSON.stringify(products));
 
     this.calculateLocalCartProdCounts();
   }
@@ -179,7 +179,7 @@ export class ProductService {
   // Fetching Locat CartsProducts
   getLocalCartProducts(): Product[] {
     const products: Product[] =
-      JSON.parse(localStorage.getItem("avct_item")) || [];
+      JSON.parse(localStorage.getItem('avct_item')) || [];
 
     return products;
   }

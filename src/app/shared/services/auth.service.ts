@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import * as firebase from "firebase/app";
-import { Observable } from "rxjs";
-import { User } from "../models/user";
-import { AngularFireAuth } from "angularfire2/auth";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
+import { User } from '../models/user';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    this.firebaseAuth.auth.signOut().then(res => this.router.navigate(["/"]));
+    this.firebaseAuth.auth.signOut().then(res => this.router.navigate(['/']));
   }
 
   createUserWithEmailAndPassword(emailID: string, password: string) {
@@ -52,7 +52,7 @@ export class AuthService {
         loggedUser.emailId = user.email;
         loggedUser.phoneNumber = user.phoneNumber;
         loggedUser.avatar = user.photoURL;
-        loggedUser.isAdmin = user.email === "admin@gmail.com" ? true : false;
+        loggedUser.isAdmin = user.email === 'admin@gmail.com' ? true : false;
       }
     } else {
       this.userDetails = null;

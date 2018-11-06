@@ -1,14 +1,14 @@
-import { TranslateService } from "./../../shared/services/translate.service";
-import { ToastyService, ToastOptions, ToastyConfig } from "ng2-toasty";
-import { Component, OnInit } from "@angular/core";
-import { Product } from "../../shared/models/product";
-import { ProductService } from "../../shared/services/product.service";
+import { TranslateService } from './../../shared/services/translate.service';
+import { ToastyService, ToastOptions, ToastyConfig } from 'ng2-toasty';
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../../shared/models/product';
+import { ProductService } from '../../shared/services/product.service';
 declare var $: any;
 
 @Component({
-  selector: "app-best-product",
-  templateUrl: "./best-product.component.html",
-  styleUrls: ["./best-product.component.scss"]
+  selector: 'app-best-product',
+  templateUrl: './best-product.component.html',
+  styleUrls: ['./best-product.component.scss']
 })
 export class BestProductComponent implements OnInit {
   bestProducts: Product[] = [];
@@ -19,18 +19,18 @@ export class BestProductComponent implements OnInit {
     private toastyConfig: ToastyConfig,
     public translate: TranslateService
   ) {
-    this.toastyConfig.position = "top-right";
-    this.toastyConfig.theme = "material";
+    this.toastyConfig.position = 'top-right';
+    this.toastyConfig.theme = 'material';
   }
 
   ngOnInit() {
     this.options = {
       dots: false,
       responsive: {
-        "0": { items: 1, margin: 5 },
-        "430": { items: 2, margin: 5 },
-        "550": { items: 3, margin: 5 },
-        "670": { items: 4, margin: 5 }
+        '0': { items: 1, margin: 5 },
+        '430': { items: 2, margin: 5 },
+        '550': { items: 3, margin: 5 },
+        '670': { items: 4, margin: 5 }
       },
       autoplay: true,
       loop: true,
@@ -47,7 +47,7 @@ export class BestProductComponent implements OnInit {
         this.bestProducts = [];
         for (let i = 0; i < 5; i++) {
           const y = product[i].payload.toJSON();
-          y["$key"] = product[i].key;
+          y['$key'] = product[i].key;
           this.bestProducts.push(y as Product);
         }
         // product.forEach(element => {
@@ -58,11 +58,11 @@ export class BestProductComponent implements OnInit {
       },
       error => {
         const toastOption: ToastOptions = {
-          title: "Error while fetching Products",
+          title: 'Error while fetching Products',
           msg: error,
           showClose: true,
           timeout: 5000,
-          theme: "material"
+          theme: 'material'
         };
         this.toastyService.error(toastOption);
       }

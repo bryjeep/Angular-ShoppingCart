@@ -1,28 +1,28 @@
-import { Component, OnInit } from "@angular/core";
-import { Product } from "../../shared/models/product";
-import { AuthService } from "../../shared/services/auth.service";
-import { ProductService } from "../../shared/services/product.service";
-import { ToastyService, ToastOptions, ToastyConfig } from "ng2-toasty";
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../../shared/models/product';
+import { AuthService } from '../../shared/services/auth.service';
+import { ProductService } from '../../shared/services/product.service';
+import { ToastyService, ToastOptions, ToastyConfig } from 'ng2-toasty';
 @Component({
-  selector: "app-product-list",
-  templateUrl: "./product-list.component.html",
-  styleUrls: ["./product-list.component.scss"]
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
   productList: Product[];
 
   brands = [
-    "All",
-    "Google",
-    "Apple",
-    "Samsung",
-    "OnePlus",
-    "Lenovo",
-    "Nokia",
-    "Motorolla"
+    'All',
+    'Google',
+    'Apple',
+    'Samsung',
+    'OnePlus',
+    'Lenovo',
+    'Nokia',
+    'Motorolla'
   ];
 
-  selectedBrand: "All";
+  selectedBrand: 'All';
 
   page = 1;
   constructor(
@@ -31,8 +31,8 @@ export class ProductListComponent implements OnInit {
     private toastyService: ToastyService,
     private toastyConfig: ToastyConfig
   ) {
-    this.toastyConfig.position = "top-right";
-    this.toastyConfig.theme = "material";
+    this.toastyConfig.position = 'top-right';
+    this.toastyConfig.theme = 'material';
   }
 
   ngOnInit() {
@@ -48,17 +48,17 @@ export class ProductListComponent implements OnInit {
         this.productList = [];
         product.forEach(element => {
           const y = element.payload.toJSON();
-          y["$key"] = element.key;
+          y['$key'] = element.key;
           this.productList.push(y as Product);
         });
       },
       err => {
         const toastOption: ToastOptions = {
-          title: "Error while fetching Products",
+          title: 'Error while fetching Products',
           msg: err,
           showClose: true,
           timeout: 5000,
-          theme: "material"
+          theme: 'material'
         };
         this.toastyService.error(toastOption);
       }
